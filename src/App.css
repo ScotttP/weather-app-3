@@ -1,0 +1,128 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html {
+	height: 100%;
+	background-color: #e3e3e3;
+}
+.App {
+	text-align: center;
+	height: 100%;
+	width: 100%;
+}
+#root {
+	height: 100%;
+	width: 100%;
+}
+#userSearchForm {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px;
+}
+#headerContainer {
+	color: #fff;
+	background-color: #6291d3;
+	height: 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#userSearch {
+	height: 20px;
+	width: 100%;
+	max-width: 350px;
+	border-radius: 5px 0 0 5px;
+	padding: 12px 20px 12px 12px;
+	box-shadow: inset 0px 0px 10px #446491;
+	background: transparent;
+	outline: none;
+	border: none;
+}
+#userSearch::placeholder {
+	color: #fff;
+}
+#searchButton {
+	background-color: #446491;
+	border: none;
+	outline: none;
+	width: 25px;
+	height: 24px;
+	border-radius: 0 5px 5px 0;
+}
+#searchButton:hover {
+	cursor: pointer;
+}
+#mainDisplayContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 5%;
+}
+#content {
+	background-color: white;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
+	border-radius: 10px;
+	padding: 50px 100px 50px 100px;
+}
+
+#details {
+	margin: 10% 5% 5% 5%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+#weatherAppHeading {
+	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.26);
+	margin: 20px;
+}
+.fa-search {
+	color: #fff;
+}
+#temp,
+#weatherDescription {
+	margin: 20px;
+}
+#favoritesList {
+	display: flex;
+}
+
+@media only screen and (min-width: 90px) {
+	#details {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		margin: 5% 5% 5% 5%;
+	}
+	.detailContent {
+		margin: 10px;
+		width: 100%;
+	}
+}
+@media only screen and (max-width: 385px) {
+	#content {
+		padding: 25px 50px 25px 50px;
+	}
+}
+
+@media only screen and (min-width: 900px) {
+	#contentContainer {
+		margin: 45px;
+	}
+	#userSearch {
+		height: 35px;
+		width: 100%;
+	}
+	#searchButton {
+		height: 35px;
+
+		width: 30px;
+	}
+}
