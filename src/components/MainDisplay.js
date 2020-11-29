@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Error from "./Error";
 
 const MainDisplay = (props) => {
+	const [unit, setUnit] = useState("F");
 	const toggleDegrees = () => {
-		console.log("toggles between F and C");
+		setUnit((prevState) => {
+			if (prevState === "F") return "C";
+			else return "F";
+		});
 	};
 
-	const fahrenheit = (temp) => {
-		return Math.round(((temp - 273.15) * 9) / 5 + 32);
+	const kelvinToUnit = (kelvinTemp) => {
+		let celsius = kelvinTemp - 273.15;
+		let fahrenheit = (celsius * 9) / 5 + 32;
+		return (
+			Math.round((unit === "C" ? celsius : fahrenheit + Number.EPSILON) * 100) /
+			100
+		);
 	};
+
 	const windSpeed = (speed) => {
 		return Math.round(speed * 2.23694 * 10) / 10;
 	};
@@ -54,7 +64,13 @@ const MainDisplay = (props) => {
 						alt={props.weatherData.description + " Icon"}
 					/>
 					<p id="temp">
-						<strong>{<>{fahrenheit(props.weatherData.temp)}&deg;F </>}</strong>
+						<strong>
+							{
+								<>
+									{kelvinToUnit(props.weatherData.temp)}&deg;{unit}{" "}
+								</>
+							}
+						</strong>
 					</p>
 					<p id="weatherDescription">
 						<strong>{props.weatherData.description}</strong>
@@ -63,7 +79,13 @@ const MainDisplay = (props) => {
 				<div id="details">
 					<p className="detailContent" id="feelsLike">
 						Feels Like:{" "}
-						<strong>{<>{fahrenheit(props.weatherData.temp)}&deg;F</>}</strong>
+						<strong>
+							{
+								<>
+									{kelvinToUnit(props.weatherData.temp)}&deg;{unit}
+								</>
+							}
+						</strong>
 					</p>
 					<p className="detailContent" id="humidity">
 						Humidity: <strong>{props.weatherData.humidity}%</strong>
@@ -79,7 +101,7 @@ const MainDisplay = (props) => {
 						<strong>{<>{windSpeed(props.weatherData.windSpeed)} MPH</>}</strong>
 					</p>
 				</div>
-				<button onClick={() => console.log("add to favorites list")}>
+				<button onClick={() => props.addToFavorites(props.weatherData)}>
 					Add to Favorites
 				</button>
 			</div>

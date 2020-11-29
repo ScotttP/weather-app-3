@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import MainDisplay from "./components/MainDisplay";
 import Favorites from "./components/Favorites";
+import uniqid from "uniqid";
 
 import "./App.css";
 
@@ -70,7 +71,6 @@ const App = () => {
 				windSpeed: currentCityWeatherdata.wind.speed,
 			});
 		} catch (error) {
-			console.log(error);
 			setError(true);
 			setErrorMessage(error.toString());
 		}
@@ -80,7 +80,6 @@ const App = () => {
 			const lat = location.coords.latitude;
 			const long = location.coords.longitude;
 			setError(false);
-			console.log(lat, long);
 			getCityWeatherByCoordinates(lat, long);
 		};
 		const error = (error) => {
@@ -94,11 +93,14 @@ const App = () => {
 			setErrorMessage(error.toString());
 		}
 	};
-	const addToFavorites = () => {
-		console.log("add to favorites list");
+	const addToFavorites = (newItem) => {
+		if (favorites.includes(newItem)) return;
+		else setFavorites([...favorites, newItem]);
 	};
-	const deleteFromFavorites = () => {
-		console.log("delete From favorites");
+	const deleteFromFavorites = (index) => {
+		let copyFavoritesList = JSON.parse(JSON.stringify(favorites));
+		copyFavoritesList.splice(index, 1);
+		setFavorites(copyFavoritesList);
 	};
 
 	const handleSubmit = (e) => {
@@ -106,15 +108,24 @@ const App = () => {
 		getWeatherData();
 	};
 	const handleChange = (e) => {
-		setUserInput(e.target.value);
-		console.log(typeof e.target.value);
 		e.preventDefault();
+		setUserInput(e.target.value);
 	};
 
 	const toggleLightAndDarkMode = () => {
 		console.log("toggle dark and light mode");
 	};
 
+	const renderFavorites = () => {
+		return favorites.map((element, index) => (
+			<Favorites
+				key={uniqid()}
+				element={element}
+				index={index}
+				deleteFromFavorites={() => deleteFromFavorites()}
+			/>
+		));
+	};
 	return (
 		<div id="appContainer">
 			<Header
@@ -129,7 +140,10 @@ const App = () => {
 				error={error}
 				errorMessage={errorMessage}
 			/>
-			<Favorites deleteFromFavorites={deleteFromFavorites} />
+			<div id="favoritesContainer">
+				<h1 id="favorites">Favorites</h1>
+				{renderFavorites()}
+			</div>
 		</div>
 	);
 };
