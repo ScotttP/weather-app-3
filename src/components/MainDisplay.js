@@ -1,54 +1,82 @@
 import React from "react";
+import Error from "./Error";
 
-const MainDisplay = () => {
+const MainDisplay = (props) => {
+	const toggleDegrees = () => {
+		console.log("toggles between F and C");
+	};
+
+	const fahrenheit = (temp) => {
+		return Math.round(((temp - 273.15) * 9) / 5 + 32);
+	};
+	const windSpeed = (speed) => {
+		return Math.round(speed * 2.23694 * 10) / 10;
+	};
+	const windDirection = (wind) => {
+		let val = Math.floor(wind / 22.5 + 0.5);
+		let arr = [
+			"N",
+			"NNE",
+			"NE",
+			"ENE",
+			"E",
+			"ESE",
+			"SE",
+			"SSE",
+			"S",
+			"SSW",
+			"SW",
+			"WSW",
+			"W",
+			"WNW",
+			"NW",
+			"NNW",
+		];
+		return arr[val % 16];
+	};
+
+	if (props.error === true) return <Error errorMessage={props.errorMessage} />;
+
 	return (
 		<div id="mainDisplayContainer">
 			<div id="content">
 				<div id="main">
 					<h1 className="mainContent" id="location">
-						{/* {this.props.weather.city}, {this.props.weather.country} */}
-						City, Country
+						{props.weatherData.city}, {props.weatherData.country}
 					</h1>
+					<button onClick={toggleDegrees} id="toggleDegrees">
+						toggle F and C
+					</button>
 					<img
 						className="mainContent"
 						id="weatherIcon"
-						src="https"
-						// {`http://openweathermap.org/img/wn/${this.props.weather.icon}@2x.png`}
-						alt="icon"
-						//{this.props.weather.description + " Icon"}
+						src={`https://openweathermap.org/img/wn/${props.weatherData.icon}@2x.png`}
+						alt={props.weatherData.description + " Icon"}
 					/>
 					<p id="temp">
-						temperature data
-						{/* <strong>
-                       
-							{<>{this.fahrenheit(this.props.weather.temp)}&deg;F </>}
-						</strong> */}
+						<strong>{<>{fahrenheit(props.weatherData.temp)}&deg;F </>}</strong>
 					</p>
 					<p id="weatherDescription">
-						weather description data
-						{/* <strong>{this.props.weather.description}</strong> */}
+						<strong>{props.weatherData.description}</strong>
 					</p>
 				</div>
 				<div id="details">
 					<p className="detailContent" id="feelsLike">
-						Feels Like: temperature data
-						{/* <strong>
-							{<>{this.fahrenheit(this.props.weather.temp)}&deg;F</>}{" "}
-						</strong> */}
+						Feels Like:{" "}
+						<strong>{<>{fahrenheit(props.weatherData.temp)}&deg;F</>}</strong>
 					</p>
 					<p className="detailContent" id="humidity">
-						Humidity: feeels Like data
-						{/* <strong>{this.props.weather.humidity}%</strong> */}
+						Humidity: <strong>{props.weatherData.humidity}%</strong>
 					</p>
 					<p className="detailContent" id="windDirection">
-						Wind Direction: windDirection data
-						{/* <strong>
-							{<>{this.direction(this.props.weather.windDirection)}</>}
-						</strong> */}
+						Wind Direction:{" "}
+						<strong>
+							{<>{windDirection(props.weatherData.windDirection)}</>}
+						</strong>
 					</p>
 					<p className="detailContent" id="windSpeed">
-						Wind Speed:wind speed data
-						{/* <strong>{<>{this.mph(this.props.weather.windSpeed)} MPH</>}</strong> */}
+						Wind Speed:{" "}
+						<strong>{<>{windSpeed(props.weatherData.windSpeed)} MPH</>}</strong>
 					</p>
 				</div>
 				<button onClick={() => console.log("add to favorites list")}>

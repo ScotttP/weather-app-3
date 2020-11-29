@@ -6,48 +6,68 @@ import Favorites from "./components/Favorites";
 import "./App.css";
 
 const App = () => {
+	const [userInput, setUserInput] = useState("New York City, US");
+	const [favorites, setFavorites] = useState([]);
+	const [error, setError] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
 	const [weatherData, setWeatherData] = useState({
-		userInput: "New York City",
-		// userInput: "New York",
-		// 	icon: "",
-		// 	city: "",
-		// 	country: "US",
-		// 	temp: "",
-		// 	description: "",
-		// 	feelsLike: "",
-		// 	humidity: "",
-		// 	windDirection: "",
-		// 	windSpeed: "",
+		icon: "",
+		city: "",
+		country: "US",
+		temp: "",
+		description: "",
+		feelsLike: "",
+		humidity: "",
+		windDirection: "",
+		windSpeed: "",
 	});
+
 	useEffect(() => {
 		getWeatherData();
 	}, []);
 
 	const getWeatherData = async () => {
-		console.log("getWeatherdata function");
-		// try {
-		// 	const response = await fetch(
-		// 		`https://api.openweathermap.org/data/2.5/weather?q=${this.state.userInput}&APPID=b388badf2ea8d6a1b0fc28f7d99e0ccc`,
-		// 		{ mode: "cors" }
-		// 	);
-		// 	const weatherData = await response.json();
-		// 	this.setState({
-		// 		city: weatherData.name,
-		// 		icon: weatherData.weather[0].icon,
-		// 		country: weatherData.sys.country,
-		// 		temp: weatherData.main.temp,
-		// 		description: weatherData.weather[0].description,
-		// 		feelsLike: weatherData.main.feels_like,
-		// 		humidity: weatherData.main.humidity,
-		// 		windDirection: weatherData.wind.deg,
-		// 		windSpeed: weatherData.wind.speed,
-		// 	});
-		// } catch (error) {
-		//  console.log("display error component")
-		// }
+		try {
+			const response = await fetch(
+				`https://api.openweathermap.org/data/2.5/weather?q=${userInput}&APPID=b388badf2ea8d6a1b0fc28f7d99e0ccc`,
+				{ mode: "cors" }
+			);
+			const weatherData = await response.json();
+
+			setWeatherData({
+				city: weatherData.name,
+				icon: weatherData.weather[0].icon,
+				country: weatherData.sys.country,
+				temp: weatherData.main.temp,
+				description: weatherData.weather[0].description,
+				feelsLike: weatherData.main.feels_like,
+				humidity: weatherData.main.humidity,
+				windDirection: weatherData.wind.deg,
+				windSpeed: weatherData.wind.speed,
+			});
+			setError(false);
+		} catch (error) {
+			setError(true);
+			console.log(error);
+			console.log(JSON.stringify(error));
+			setErrorMessage(JSON.stringify(error));
+			console.log(errorMessage);
+		}
 	};
 	const getCurrentLocation = async () => {
-		console.log("get current location and then run getWeatherData function");
+		const success = (location) => {
+			console.log(location);
+			setError(false);
+		};
+		const error = (error) => {
+			setError(true);
+			setErrorMessage(error.message);
+		};
+		try {
+			await fetch(navigator.geolocation.getCurrentPosition(success, error));
+		} catch (error) {
+			setError(true);
+		}
 	};
 	const addToFavorites = () => {
 		console.log("add to favorites list");
@@ -57,12 +77,12 @@ const App = () => {
 	};
 
 	const handleSubmit = (e) => {
-		console.log(e);
 		e.preventDefault();
 		getWeatherData();
 	};
 	const handleChange = (e) => {
-		console.log("set user input state");
+		setUserInput(e.target.value);
+		console.log(typeof e.target.value);
 		e.preventDefault();
 	};
 
@@ -78,7 +98,12 @@ const App = () => {
 				toggleMode={toggleLightAndDarkMode}
 				getCurrentLocation={getCurrentLocation}
 			/>
-			<MainDisplay addToFavorites={addToFavorites} />
+			<MainDisplay
+				addToFavorites={addToFavorites}
+				weatherData={weatherData}
+				error={error}
+				errorMessage={errorMessage}
+			/>
 			<Favorites deleteFromFavorites={deleteFromFavorites} />
 		</div>
 	);
