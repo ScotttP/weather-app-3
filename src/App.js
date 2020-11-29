@@ -48,25 +48,50 @@ const App = () => {
 			setError(false);
 		} catch (error) {
 			setError(true);
-			console.log(error);
-			console.log(JSON.stringify(error));
-			setErrorMessage(JSON.stringify(error));
-			console.log(errorMessage);
+			setErrorMessage(error.toString());
 		}
 	};
-	const getCurrentLocation = async () => {
+	const getCityWeatherByCoordinates = async (lat, long) => {
+		try {
+			const response = await fetch(
+				`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=b388badf2ea8d6a1b0fc28f7d99e0ccc`,
+				{ mode: "cors" }
+			);
+			const currentCityWeatherdata = await response.json();
+			setWeatherData({
+				city: currentCityWeatherdata.name,
+				icon: currentCityWeatherdata.weather[0].icon,
+				country: currentCityWeatherdata.sys.country,
+				temp: currentCityWeatherdata.main.temp,
+				description: currentCityWeatherdata.weather[0].description,
+				feelsLike: currentCityWeatherdata.main.feels_like,
+				humidity: currentCityWeatherdata.main.humidity,
+				windDirection: currentCityWeatherdata.wind.deg,
+				windSpeed: currentCityWeatherdata.wind.speed,
+			});
+		} catch (error) {
+			console.log(error);
+			setError(true);
+			setErrorMessage(error.toString());
+		}
+	};
+	const getCoordinates = () => {
 		const success = (location) => {
-			console.log(location);
+			const lat = location.coords.latitude;
+			const long = location.coords.longitude;
 			setError(false);
+			console.log(lat, long);
+			getCityWeatherByCoordinates(lat, long);
 		};
 		const error = (error) => {
 			setError(true);
 			setErrorMessage(error.message);
 		};
 		try {
-			await fetch(navigator.geolocation.getCurrentPosition(success, error));
+			navigator.geolocation.getCurrentPosition(success, error);
 		} catch (error) {
 			setError(true);
+			setErrorMessage(error.toString());
 		}
 	};
 	const addToFavorites = () => {
@@ -96,7 +121,7 @@ const App = () => {
 				submit={handleSubmit}
 				change={handleChange}
 				toggleMode={toggleLightAndDarkMode}
-				getCurrentLocation={getCurrentLocation}
+				getCurrentLocation={getCoordinates}
 			/>
 			<MainDisplay
 				addToFavorites={addToFavorites}
