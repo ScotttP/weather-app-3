@@ -5,7 +5,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 const Header = (props) => {
 	return (
 		<div id="headerContainer">
-			<button onClick={props.toggleMode}>toggle dark and light theme</button>
+			<button onClick={props.toggleMode}>{props.themeMode}</button>
 			<h1 id="Heading">Weather App</h1>
 			<form id="userSearchForm">
 				<input

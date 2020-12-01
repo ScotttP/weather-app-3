@@ -8,7 +8,16 @@ import "./App.css";
 
 const App = () => {
 	const [userInput, setUserInput] = useState("New York City, US");
-	const [favorites, setFavorites] = useState([]);
+	const [favorites, setFavorites] = useState(() => {
+		if (!localStorage.getItem("favorites")) {
+			return [];
+		} else return JSON.parse(localStorage.getItem("favorites"));
+	});
+	const [themeMode, setThemeMode] = useState(() => {
+		if (!localStorage.getItem("themeMode")) {
+			return "Light";
+		} else return localStorage.getItem("themeMode");
+	});
 	const [error, setError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [weatherData, setWeatherData] = useState({
@@ -26,6 +35,13 @@ const App = () => {
 	useEffect(() => {
 		getWeatherData();
 	}, []);
+
+	useEffect(() => {
+		localStorage.setItem("favorites", JSON.stringify(favorites));
+	}, [favorites]);
+	useEffect(() => {
+		localStorage.setItem("themeMode", themeMode);
+	}, [themeMode]);
 
 	const getWeatherData = async () => {
 		try {
@@ -94,8 +110,9 @@ const App = () => {
 		}
 	};
 	const addToFavorites = (newItem) => {
-		if (favorites.includes(newItem)) return;
-		else setFavorites([...favorites, newItem]);
+		let copyFavoritesList = JSON.parse(JSON.stringify(favorites));
+		if (copyFavoritesList.includes(newItem)) return;
+		else setFavorites([...copyFavoritesList, newItem]);
 	};
 	const deleteFromFavorites = (index) => {
 		let copyFavoritesList = JSON.parse(JSON.stringify(favorites));
@@ -113,7 +130,10 @@ const App = () => {
 	};
 
 	const toggleLightAndDarkMode = () => {
-		console.log("toggle dark and light mode");
+		setThemeMode((prevState) => {
+			if (prevState === "Light") return "Dark";
+			else return "Light";
+		});
 	};
 
 	const renderFavorites = () => {
@@ -133,6 +153,7 @@ const App = () => {
 				change={handleChange}
 				toggleMode={toggleLightAndDarkMode}
 				getCurrentLocation={getCoordinates}
+				themeMode={themeMode}
 			/>
 			<MainDisplay
 				addToFavorites={addToFavorites}

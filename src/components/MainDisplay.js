@@ -13,9 +13,8 @@ const MainDisplay = (props) => {
 	const kelvinToUnit = (kelvinTemp) => {
 		let celsius = kelvinTemp - 273.15;
 		let fahrenheit = (celsius * 9) / 5 + 32;
-		return (
-			Math.round((unit === "C" ? celsius : fahrenheit + Number.EPSILON) * 100) /
-			100
+		return Math.round(
+			Math.round((unit === "C" ? celsius : fahrenheit) * 100) / 100
 		);
 	};
 
