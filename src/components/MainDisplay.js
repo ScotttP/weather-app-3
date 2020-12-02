@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import Error from "./Error";
+import styled from "styled-components";
+
+const MainDisplayContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 5%;
+`;
 
 const MainDisplay = (props) => {
 	const [unit, setUnit] = useState("F");
@@ -47,7 +56,7 @@ const MainDisplay = (props) => {
 	if (props.error === true) return <Error errorMessage={props.errorMessage} />;
 
 	return (
-		<div id="mainDisplayContainer">
+		<MainDisplayContainer id="mainDisplayContainer">
 			<div id="content">
 				<div id="main">
 					<h1 className="mainContent" id="location">
@@ -104,7 +113,7 @@ const MainDisplay = (props) => {
 					Add to Favorites
 				</button>
 			</div>
-		</div>
+		</MainDisplayContainer>
 	);
 };
 export default MainDisplay;

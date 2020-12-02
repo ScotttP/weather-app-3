@@ -91,7 +91,8 @@ const App = () => {
 			setErrorMessage(error.toString());
 		}
 	};
-	const getCoordinates = () => {
+	const getCoordinates = (e) => {
+		e.preventDefault();
 		const success = (location) => {
 			const lat = location.coords.latitude;
 			const long = location.coords.longitude;
