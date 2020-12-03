@@ -92,6 +92,10 @@ const App = () => {
 		}
 	};
 	const getCoordinates = (e) => {
+		setTimeout(() => {
+			console.log("loading...");
+		}, 2000);
+
 		e.preventDefault();
 		const success = (location) => {
 			const lat = location.coords.latitude;
