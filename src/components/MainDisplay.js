@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Loader from "react-loader-spinner";
 import styled from "styled-components";
 
 const MainDisplayContainer = styled.div`
@@ -9,6 +9,10 @@ const MainDisplayContainer = styled.div`
 	align-items: center;
 	margin: 5%;
 `;
+
+const LoadingIndicator = (props) => {
+	return <Loader type="ThreeDots" color="#6291d3" height="100" width="100" />;
+};
 
 const MainDisplay = (props) => {
 	const [unit, setUnit] = useState("F");
@@ -55,62 +59,68 @@ const MainDisplay = (props) => {
 
 	return (
 		<MainDisplayContainer id="mainDisplayContainer">
-			<div id="content">
-				<div id="main">
-					<h1 className="mainContent" id="location">
-						{props.weatherData.city}, {props.weatherData.country}
-					</h1>
-					<button onClick={toggleDegrees} id="toggleDegrees">
-						toggle F and C
+			{props.isLoading ? (
+				<LoadingIndicator />
+			) : (
+				<div id="content">
+					<div id="main">
+						<h1 className="mainContent" id="location">
+							{props.weatherData.city}, {props.weatherData.country}
+						</h1>
+						<button onClick={toggleDegrees} id="toggleDegrees">
+							toggle F and C
+						</button>
+						<img
+							className="mainContent"
+							id="weatherIcon"
+							src={`https://openweathermap.org/img/wn/${props.weatherData.icon}@2x.png`}
+							alt={props.weatherData.description + " Icon"}
+						/>
+						<p id="temp">
+							<strong>
+								{
+									<>
+										{kelvinToUnit(props.weatherData.temp)}&deg;{unit}{" "}
+									</>
+								}
+							</strong>
+						</p>
+						<p id="weatherDescription">
+							<strong>{props.weatherData.description}</strong>
+						</p>
+					</div>
+					<div id="details">
+						<p className="detailContent" id="feelsLike">
+							Feels Like:{" "}
+							<strong>
+								{
+									<>
+										{kelvinToUnit(props.weatherData.temp)}&deg;{unit}
+									</>
+								}
+							</strong>
+						</p>
+						<p className="detailContent" id="humidity">
+							Humidity: <strong>{props.weatherData.humidity}%</strong>
+						</p>
+						<p className="detailContent" id="windDirection">
+							Wind Direction:{" "}
+							<strong>
+								{<>{windDirection(props.weatherData.windDirection)}</>}
+							</strong>
+						</p>
+						<p className="detailContent" id="windSpeed">
+							Wind Speed:{" "}
+							<strong>
+								{<>{windSpeed(props.weatherData.windSpeed)} MPH</>}
+							</strong>
+						</p>
+					</div>
+					<button onClick={() => props.addToFavorites(props.weatherData)}>
+						Add to Favorites
 					</button>
-					<img
-						className="mainContent"
-						id="weatherIcon"
-						src={`https://openweathermap.org/img/wn/${props.weatherData.icon}@2x.png`}
-						alt={props.weatherData.description + " Icon"}
-					/>
-					<p id="temp">
-						<strong>
-							{
-								<>
-									{kelvinToUnit(props.weatherData.temp)}&deg;{unit}{" "}
-								</>
-							}
-						</strong>
-					</p>
-					<p id="weatherDescription">
-						<strong>{props.weatherData.description}</strong>
-					</p>
 				</div>
-				<div id="details">
-					<p className="detailContent" id="feelsLike">
-						Feels Like:{" "}
-						<strong>
-							{
-								<>
-									{kelvinToUnit(props.weatherData.temp)}&deg;{unit}
-								</>
-							}
-						</strong>
-					</p>
-					<p className="detailContent" id="humidity">
-						Humidity: <strong>{props.weatherData.humidity}%</strong>
-					</p>
-					<p className="detailContent" id="windDirection">
-						Wind Direction:{" "}
-						<strong>
-							{<>{windDirection(props.weatherData.windDirection)}</>}
-						</strong>
-					</p>
-					<p className="detailContent" id="windSpeed">
-						Wind Speed:{" "}
-						<strong>{<>{windSpeed(props.weatherData.windSpeed)} MPH</>}</strong>
-					</p>
-				</div>
-				<button onClick={() => props.addToFavorites(props.weatherData)}>
-					Add to Favorites
-				</button>
-			</div>
+			)}
 		</MainDisplayContainer>
 	);
 };

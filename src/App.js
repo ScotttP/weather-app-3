@@ -3,11 +3,13 @@ import Header from "./components/Header";
 import MainDisplay from "./components/MainDisplay";
 import Favorites from "./components/Favorites";
 import uniqid from "uniqid";
+import { usePromiseTracker } from "react-promise-tracker";
 
 import "./App.css";
 
 const App = () => {
 	const [userInput, setUserInput] = useState("New York City, US");
+	const [loading, setLoading] = useState(false);
 	const [favorites, setFavorites] = useState(() => {
 		if (!localStorage.getItem("favorites")) {
 			return [];
@@ -33,6 +35,13 @@ const App = () => {
 	});
 
 	useEffect(() => {
+		// const timeout = setTimeout(() => {
+		// 	getWeatherData();
+		// }, 500);
+
+		// return () => {
+		// 	clearTimeout(timeout);
+		// };
 		getWeatherData();
 	}, [userInput]);
 
@@ -86,13 +95,14 @@ const App = () => {
 				windDirection: currentCityWeatherdata.wind.deg,
 				windSpeed: currentCityWeatherdata.wind.speed,
 			});
-			console.log("done");
+			setLoading(false);
 		} catch (error) {
 			setError(true);
 			setErrorMessage(error.toString());
 		}
 	};
 	const getCoordinates = (e) => {
+		setLoading(true);
 		e.preventDefault();
 		const success = (location) => {
 			const lat = location.coords.latitude;
@@ -172,7 +182,12 @@ const App = () => {
 				error={error}
 				errorMessage={errorMessage}
 			/>
-			<MainDisplay addToFavorites={addToFavorites} weatherData={weatherData} />
+
+			<MainDisplay
+				isLoading={loading}
+				addToFavorites={addToFavorites}
+				weatherData={weatherData}
+			/>
 			<div id="favoritesContainer">
 				<h1 id="favorites">Favorites</h1>
 				{renderFavorites()}
