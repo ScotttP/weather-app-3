@@ -5,6 +5,7 @@ import Favorites from "./components/Favorites";
 import uniqid from "uniqid";
 
 import "./App.css";
+import { useTheme } from "styled-components";
 
 const App = () => {
 	const [userInput, setUserInput] = useState("New York City, US");
@@ -34,7 +35,7 @@ const App = () => {
 
 	useEffect(() => {
 		getWeatherData();
-	}, []);
+	}, [userInput]);
 
 	useEffect(() => {
 		localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -105,9 +106,6 @@ const App = () => {
 			setErrorMessage(error.message);
 		};
 		try {
-			setTimeout(() => {
-				console.log("loading...");
-			}, 2000);
 			navigator.geolocation.getCurrentPosition(success, error);
 		} catch (error) {
 			setError(true);
@@ -116,18 +114,20 @@ const App = () => {
 	};
 	const addToFavorites = (newItem) => {
 		let copyFavoritesList = JSON.parse(JSON.stringify(favorites));
-		if (
-			copyFavoritesList.some(
-				(e) => e.name === newItem.name && e.country === newItem.country
-			)
-		)
-			return;
-		else setFavorites([...copyFavoritesList, newItem]);
+
+		setFavorites([...copyFavoritesList, newItem]);
 	};
 	const deleteFromFavorites = (index) => {
 		let copyFavoritesList = JSON.parse(JSON.stringify(favorites));
 		copyFavoritesList.splice(index, 1);
 		setFavorites(copyFavoritesList);
+	};
+
+	const displayFavorites = (element) => {
+		console.log(userInput);
+		console.log(element);
+		setUserInput(`${element.city},${element.country}`);
+		getWeatherData();
 	};
 
 	const handleSubmit = (e) => {
@@ -152,6 +152,7 @@ const App = () => {
 				key={uniqid()}
 				element={element}
 				index={index}
+				displayFavorites={() => displayFavorites(element)}
 				deleteFromFavorites={() => deleteFromFavorites()}
 			/>
 		));

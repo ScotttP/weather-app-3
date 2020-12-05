@@ -2,7 +2,7 @@ import React from "react";
 
 const Favorites = (props) => {
 	return (
-		<div>
+		<div onClick={() => props.displayFavorites()}>
 			<h1>
 				{props.element.city}, {props.element.country}
 			</h1>
