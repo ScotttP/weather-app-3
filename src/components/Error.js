@@ -4,8 +4,7 @@ const Error = (props) => {
 	console.log(props);
 	return (
 		<div id="errorContainer">
-			<h1>An Error Occured while fetching</h1>
-			<p>{props.errorMessage}</p>
+			<h1>Please Enter a Valid City and Country.</h1>
 		</div>
 	);
 };

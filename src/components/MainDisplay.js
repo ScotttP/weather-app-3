@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Error from "./Error";
+
 import styled from "styled-components";
 
 const MainDisplayContainer = styled.div`
@@ -52,8 +52,6 @@ const MainDisplay = (props) => {
 		];
 		return arr[val % 16];
 	};
-
-	if (props.error === true) return <Error errorMessage={props.errorMessage} />;
 
 	return (
 		<MainDisplayContainer id="mainDisplayContainer">

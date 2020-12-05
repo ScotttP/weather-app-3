@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
-
+import Error from "./Error";
 import styled from "styled-components";
 
 const HeaderContainer = styled.div`
@@ -30,6 +30,7 @@ const UserSearchForm = styled.form`
 const UserSearchInput = styled.input.attrs({
 	type: "text",
 	placeholder: "City, Country",
+	id: "userSearch",
 })`
 	height: 3vh;
 	width: 100%;
@@ -63,15 +64,19 @@ const Header = (props) => {
 			<button onClick={props.toggleMode}>{props.themeMode}</button>
 			<WeatherAppHeading>Weather App</WeatherAppHeading>
 			<UserSearchForm>
-				<SearchBarButton onClick={(e) => props.getCurrentLocation(e)}>
-					<FontAwesomeIcon icon={faCrosshairs} />
-				</SearchBarButton>
-				<UserSearchInput onChange={(e) => props.change(e)}></UserSearchInput>
-
 				<SearchBarButton onClick={(e) => props.submit(e)}>
 					<FontAwesomeIcon icon={faSearch} />
 				</SearchBarButton>
+
+				<UserSearchInput
+					onChange={(e) => props.handleChange(e)}
+				></UserSearchInput>
+
+				<SearchBarButton onClick={(e) => props.getCurrentLocation(e)}>
+					<FontAwesomeIcon icon={faCrosshairs} />
+				</SearchBarButton>
 			</UserSearchForm>
+			{props.error ? <Error></Error> : <div></div>}
 		</HeaderContainer>
 	);
 };

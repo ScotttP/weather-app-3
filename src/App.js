@@ -5,7 +5,6 @@ import Favorites from "./components/Favorites";
 import uniqid from "uniqid";
 
 import "./App.css";
-import { useTheme } from "styled-components";
 
 const App = () => {
 	const [userInput, setUserInput] = useState("New York City, US");
@@ -114,8 +113,9 @@ const App = () => {
 	};
 	const addToFavorites = (newItem) => {
 		let copyFavoritesList = JSON.parse(JSON.stringify(favorites));
-
-		setFavorites([...copyFavoritesList, newItem]);
+		if (copyFavoritesList.find((e) => e.city === newItem.city)) return;
+		//check if city is already in favorites list
+		else setFavorites([...copyFavoritesList, newItem]);
 	};
 	const deleteFromFavorites = (index) => {
 		let copyFavoritesList = JSON.parse(JSON.stringify(favorites));
@@ -124,19 +124,23 @@ const App = () => {
 	};
 
 	const displayFavorites = (element) => {
-		console.log(userInput);
-		console.log(element);
 		setUserInput(`${element.city},${element.country}`);
-		getWeatherData();
 	};
 
 	const handleSubmit = (e) => {
+		const userInputFormValue = document.getElementById("userSearch").value;
 		e.preventDefault();
-		getWeatherData();
+		if (
+			userInputFormValue === undefined ||
+			userInputFormValue === "" ||
+			userInputFormValue === null
+		)
+			return;
+		else setUserInput(userInputFormValue);
 	};
 	const handleChange = (e) => {
 		e.preventDefault();
-		setUserInput(e.target.value);
+		setError(false);
 	};
 
 	const toggleLightAndDarkMode = () => {
@@ -161,17 +165,14 @@ const App = () => {
 		<div id="appContainer">
 			<Header
 				submit={handleSubmit}
-				change={handleChange}
+				handleChange={handleChange}
 				toggleMode={toggleLightAndDarkMode}
 				getCurrentLocation={getCoordinates}
 				themeMode={themeMode}
-			/>
-			<MainDisplay
-				addToFavorites={addToFavorites}
-				weatherData={weatherData}
 				error={error}
 				errorMessage={errorMessage}
 			/>
+			<MainDisplay addToFavorites={addToFavorites} weatherData={weatherData} />
 			<div id="favoritesContainer">
 				<h1 id="favorites">Favorites</h1>
 				{renderFavorites()}
