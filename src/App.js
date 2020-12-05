@@ -86,16 +86,13 @@ const App = () => {
 				windDirection: currentCityWeatherdata.wind.deg,
 				windSpeed: currentCityWeatherdata.wind.speed,
 			});
+			console.log("done");
 		} catch (error) {
 			setError(true);
 			setErrorMessage(error.toString());
 		}
 	};
 	const getCoordinates = (e) => {
-		setTimeout(() => {
-			console.log("loading...");
-		}, 2000);
-
 		e.preventDefault();
 		const success = (location) => {
 			const lat = location.coords.latitude;
@@ -108,6 +105,9 @@ const App = () => {
 			setErrorMessage(error.message);
 		};
 		try {
+			setTimeout(() => {
+				console.log("loading...");
+			}, 2000);
 			navigator.geolocation.getCurrentPosition(success, error);
 		} catch (error) {
 			setError(true);
@@ -116,7 +116,12 @@ const App = () => {
 	};
 	const addToFavorites = (newItem) => {
 		let copyFavoritesList = JSON.parse(JSON.stringify(favorites));
-		if (copyFavoritesList.includes(newItem)) return;
+		if (
+			copyFavoritesList.some(
+				(e) => e.name === newItem.name && e.country === newItem.country
+			)
+		)
+			return;
 		else setFavorites([...copyFavoritesList, newItem]);
 	};
 	const deleteFromFavorites = (index) => {
