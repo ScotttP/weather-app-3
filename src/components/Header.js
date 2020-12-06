@@ -7,11 +7,20 @@ import styled from "styled-components";
 const HeaderContainer = styled.div`
 	color: #fff;
 	background-color: #6291d3;
-	height: 150px;
+	height: 15vh;
+	max-height: 155px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+`;
+
+const ToggleModeButton = styled.button`
+	width: 10vw;
+	height: 3vh;
+	position: absolute;
+	right: 5%;
+	top: 3.5%;
 `;
 
 const WeatherAppHeading = styled.h1`
@@ -61,8 +70,10 @@ const SearchBarButton = styled.button`
 const Header = (props) => {
 	return (
 		<HeaderContainer>
-			<button onClick={props.toggleMode}>{props.themeMode}</button>
-			<WeatherAppHeading>Weather App</WeatherAppHeading>
+			<WeatherAppHeading>Weather App</WeatherAppHeading>{" "}
+			<ToggleModeButton onClick={props.toggleMode}>
+				{props.themeMode}
+			</ToggleModeButton>
 			<UserSearchForm>
 				<SearchBarButton onClick={(e) => props.submit(e)}>
 					<FontAwesomeIcon icon={faSearch} />

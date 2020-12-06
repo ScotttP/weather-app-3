@@ -3,7 +3,9 @@ import Header from "./components/Header";
 import MainDisplay from "./components/MainDisplay";
 import Favorites from "./components/Favorites";
 import uniqid from "uniqid";
-import { usePromiseTracker } from "react-promise-tracker";
+import { ThemeProvider } from "styled-components";
+import lightTheme from "./themes/light";
+import darkTheme from "./themes/dark";
 
 import "./App.css";
 
@@ -172,27 +174,29 @@ const App = () => {
 		));
 	};
 	return (
-		<div id="appContainer">
-			<Header
-				submit={handleSubmit}
-				handleChange={handleChange}
-				toggleMode={toggleLightAndDarkMode}
-				getCurrentLocation={getCoordinates}
-				themeMode={themeMode}
-				error={error}
-				errorMessage={errorMessage}
-			/>
+		<ThemeProvider theme={darkTheme}>
+			<div id="appContainer">
+				<Header
+					submit={handleSubmit}
+					handleChange={handleChange}
+					toggleMode={toggleLightAndDarkMode}
+					getCurrentLocation={getCoordinates}
+					themeMode={themeMode}
+					error={error}
+					errorMessage={errorMessage}
+				/>
 
-			<MainDisplay
-				isLoading={loading}
-				addToFavorites={addToFavorites}
-				weatherData={weatherData}
-			/>
-			<div id="favoritesContainer">
-				<h1 id="favorites">Favorites</h1>
-				{renderFavorites()}
+				<MainDisplay
+					isLoading={loading}
+					addToFavorites={addToFavorites}
+					weatherData={weatherData}
+				/>
+				<div id="favoritesContainer">
+					<h1 id="favorites">Favorites</h1>
+					{renderFavorites()}
+				</div>
 			</div>
-		</div>
+		</ThemeProvider>
 	);
 };
 

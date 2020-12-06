@@ -7,11 +7,11 @@ const MainDisplayContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: 5%;
+	margin: 5% 2% 2% 2%;
 `;
 
 const LoadingIndicator = (props) => {
-	return <Loader type="ThreeDots" color="#6291d3" height="100" width="100" />;
+	return <Loader type="ThreeDots" color="#6291d3	" height="100" width="100" />;
 };
 
 const MainDisplay = (props) => {
@@ -60,7 +60,9 @@ const MainDisplay = (props) => {
 	return (
 		<MainDisplayContainer id="mainDisplayContainer">
 			{props.isLoading ? (
-				<LoadingIndicator />
+				<div id="content">
+					<LoadingIndicator />
+				</div>
 			) : (
 				<div id="content">
 					<div id="main">
