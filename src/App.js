@@ -3,11 +3,13 @@ import Header from "./components/Header";
 import MainDisplay from "./components/MainDisplay";
 import Favorites from "./components/Favorites";
 import uniqid from "uniqid";
-import { ThemeProvider } from "styled-components";
-import lightTheme from "./themes/light";
-import darkTheme from "./themes/dark";
 
+import styled from "styled-components";
 import "./App.css";
+
+const FavoritesContainer = styled.div`
+	display: flex;
+`;
 
 const App = () => {
 	const [userInput, setUserInput] = useState("New York City, US");
@@ -174,29 +176,25 @@ const App = () => {
 		));
 	};
 	return (
-		<ThemeProvider theme={darkTheme}>
-			<div id="appContainer">
-				<Header
-					submit={handleSubmit}
-					handleChange={handleChange}
-					toggleMode={toggleLightAndDarkMode}
-					getCurrentLocation={getCoordinates}
-					themeMode={themeMode}
-					error={error}
-					errorMessage={errorMessage}
-				/>
+		<div id="appContainer">
+			<Header
+				submit={handleSubmit}
+				handleChange={handleChange}
+				toggleMode={toggleLightAndDarkMode}
+				getCurrentLocation={getCoordinates}
+				themeMode={themeMode}
+				error={error}
+				errorMessage={errorMessage}
+			/>
 
-				<MainDisplay
-					isLoading={loading}
-					addToFavorites={addToFavorites}
-					weatherData={weatherData}
-				/>
-				<div id="favoritesContainer">
-					<h1 id="favorites">Favorites</h1>
-					{renderFavorites()}
-				</div>
-			</div>
-		</ThemeProvider>
+			<MainDisplay
+				isLoading={loading}
+				addToFavorites={addToFavorites}
+				weatherData={weatherData}
+			/>
+			<h1 id="favorites">Favorites</h1>
+			<FavoritesContainer>{renderFavorites()}</FavoritesContainer>
+		</div>
 	);
 };
 

@@ -1,8 +1,14 @@
 import React from "react";
+import styled from "styled-components";
+
+const FavoritesDiv = styled.div`
+	display: flex;
+	border: 1px solid black;
+`;
 
 const Favorites = (props) => {
 	return (
-		<div onClick={() => props.displayFavorites()}>
+		<FavoritesDiv onClick={() => props.displayFavorites()}>
 			<h1>
 				{props.element.city}, {props.element.country}
 			</h1>
@@ -13,7 +19,7 @@ const Favorites = (props) => {
 			>
 				Delete From Favorites
 			</button>
-		</div>
+		</FavoritesDiv>
 	);
 };
 export default Favorites;

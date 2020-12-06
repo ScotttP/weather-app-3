@@ -10,6 +10,26 @@ const MainDisplayContainer = styled.div`
 	margin: 5% 2% 2% 2%;
 `;
 
+const Content = styled.div`
+	background-color: white;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
+	border-radius: 10px;
+	padding: 50px 100px 50px 100px;
+	min-height: 522px;
+`;
+
+const Details = styled.div`
+	margin: 10% 5% 5% 5%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+`;
+
+const TempAndWeatherDescription = styled.div`
+	margin: 20px;
+`;
+
 const LoadingIndicator = (props) => {
 	return <Loader type="ThreeDots" color="#6291d3	" height="100" width="100" />;
 };
@@ -60,11 +80,11 @@ const MainDisplay = (props) => {
 	return (
 		<MainDisplayContainer id="mainDisplayContainer">
 			{props.isLoading ? (
-				<div id="content">
+				<Content>
 					<LoadingIndicator />
-				</div>
+				</Content>
 			) : (
-				<div id="content">
+				<Content>
 					<div id="main">
 						<h1 className="mainContent" id="location">
 							{props.weatherData.city}, {props.weatherData.country}
@@ -78,7 +98,7 @@ const MainDisplay = (props) => {
 							src={`https://openweathermap.org/img/wn/${props.weatherData.icon}@2x.png`}
 							alt={props.weatherData.description + " Icon"}
 						/>
-						<p id="temp">
+						<TempAndWeatherDescription>
 							<strong>
 								{
 									<>
@@ -86,12 +106,12 @@ const MainDisplay = (props) => {
 									</>
 								}
 							</strong>
-						</p>
-						<p id="weatherDescription">
+						</TempAndWeatherDescription>
+						<TempAndWeatherDescription>
 							<strong>{props.weatherData.description}</strong>
-						</p>
+						</TempAndWeatherDescription>
 					</div>
-					<div id="details">
+					<Details>
 						<p className="detailContent" id="feelsLike">
 							Feels Like:{" "}
 							<strong>
@@ -117,11 +137,11 @@ const MainDisplay = (props) => {
 								{<>{windSpeed(props.weatherData.windSpeed)} MPH</>}
 							</strong>
 						</p>
-					</div>
+					</Details>
 					<button onClick={() => props.addToFavorites(props.weatherData)}>
 						Add to Favorites
 					</button>
-				</div>
+				</Content>
 			)}
 		</MainDisplayContainer>
 	);
