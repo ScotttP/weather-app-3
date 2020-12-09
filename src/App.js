@@ -3,9 +3,20 @@ import Header from "./components/Header";
 import MainDisplay from "./components/MainDisplay";
 import Favorites from "./components/Favorites";
 import uniqid from "uniqid";
-
+import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 import "./App.css";
+
+const GlobalStyle = createGlobalStyle`
+
+
+body {
+	height: 100vh;
+	background-color: #e3e3e3;
+}
+
+
+`;
 
 const FavoritesContainer = styled.div`
 	display: flex;
@@ -177,6 +188,7 @@ const App = () => {
 	};
 	return (
 		<div id="appContainer">
+			<GlobalStyle></GlobalStyle>
 			<Header
 				submit={handleSubmit}
 				handleChange={handleChange}

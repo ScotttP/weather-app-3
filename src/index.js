@@ -3,24 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createGlobalStyle } from "styled-components";
+
 import { ThemeProvider } from "styled-components";
 import lightTheme from "./themes/light";
 import darkTheme from "./themes/dark";
 
-const GlobalStyle = createGlobalStyle`
-
-html{
-	height: 100%;
-	background-color: ${(props) => (props.light ? "#e3e3e3" : "#2E3440")}
-}
-
-
-`;
-
 ReactDOM.render(
 	<React.StrictMode>
-		<GlobalStyle></GlobalStyle>
 		<App />
 	</React.StrictMode>,
 	document.getElementById("root")
