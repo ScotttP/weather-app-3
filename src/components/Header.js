@@ -72,7 +72,7 @@ const Header = (props) => {
 		<HeaderContainer>
 			<WeatherAppHeading>Weather App</WeatherAppHeading>{" "}
 			<ToggleModeButton onClick={props.toggleMode}>
-				{props.themeMode}
+				{props.themeMode === "Light" ? "Dark" : "Light"}
 			</ToggleModeButton>
 			<UserSearchForm>
 				<SearchBarButton onClick={(e) => props.submit(e)}>

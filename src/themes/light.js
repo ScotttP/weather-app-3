@@ -1,4 +1,4 @@
-const lightTheme = {
+export default {
 	colors: {
 		background: "#ECEFF4",
 		cardBackground: "#E5E9F0",
@@ -7,5 +7,3 @@ const lightTheme = {
 		buttonColor: "#ECEFF4",
 	},
 };
-
-export default lightTheme;

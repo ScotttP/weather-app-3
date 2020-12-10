@@ -5,21 +5,23 @@ import Favorites from "./components/Favorites";
 import uniqid from "uniqid";
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
+import { ThemeProvider } from "styled-components";
+import lightTheme from "./themes/light";
+import darkTheme from "./themes/dark";
 import "./App.css";
 
 const GlobalStyle = createGlobalStyle`
 
-
 body {
 	height: 100vh;
-	background-color: #e3e3e3;
+	background-color: ${(props) => props.theme.colors.background};
 }
-
 
 `;
 
 const FavoritesContainer = styled.div`
 	display: flex;
+	background: ${(props) => props.theme.colors.background};
 `;
 
 const App = () => {
@@ -50,13 +52,6 @@ const App = () => {
 	});
 
 	useEffect(() => {
-		// const timeout = setTimeout(() => {
-		// 	getWeatherData();
-		// }, 500);
-
-		// return () => {
-		// 	clearTimeout(timeout);
-		// };
 		getWeatherData();
 	}, [userInput]);
 
@@ -187,26 +182,28 @@ const App = () => {
 		));
 	};
 	return (
-		<div id="appContainer">
+		<ThemeProvider theme={themeMode === "Light" ? lightTheme : darkTheme}>
 			<GlobalStyle></GlobalStyle>
-			<Header
-				submit={handleSubmit}
-				handleChange={handleChange}
-				toggleMode={toggleLightAndDarkMode}
-				getCurrentLocation={getCoordinates}
-				themeMode={themeMode}
-				error={error}
-				errorMessage={errorMessage}
-			/>
+			<div id="appContainer">
+				<Header
+					submit={handleSubmit}
+					handleChange={handleChange}
+					toggleMode={toggleLightAndDarkMode}
+					getCurrentLocation={getCoordinates}
+					themeMode={themeMode}
+					error={error}
+					errorMessage={errorMessage}
+				/>
 
-			<MainDisplay
-				isLoading={loading}
-				addToFavorites={addToFavorites}
-				weatherData={weatherData}
-			/>
-			<h1 id="favorites">Favorites</h1>
-			<FavoritesContainer>{renderFavorites()}</FavoritesContainer>
-		</div>
+				<MainDisplay
+					isLoading={loading}
+					addToFavorites={addToFavorites}
+					weatherData={weatherData}
+				/>
+				<h1 id="favorites">Favorites</h1>
+				<FavoritesContainer>{renderFavorites()}</FavoritesContainer>
+			</div>
+		</ThemeProvider>
 	);
 };
 
