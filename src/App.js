@@ -16,6 +16,11 @@ body {
 	height: 100vh;
 	background-color: ${(props) => props.theme.colors.background};
 }
+button {
+	&:hover  {
+		cursor: pointer;
+	}
+}
 
 `;
 

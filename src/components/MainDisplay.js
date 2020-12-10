@@ -86,12 +86,13 @@ const MainDisplay = (props) => {
 			) : (
 				<Content>
 					<div id="main">
-						<h1 className="mainContent" id="location">
-							{props.weatherData.city}, {props.weatherData.country}
-						</h1>
 						<button onClick={toggleDegrees} id="toggleDegrees">
 							toggle F and C
 						</button>
+						<h1 className="mainContent" id="location">
+							{props.weatherData.city}, {props.weatherData.country}
+						</h1>
+
 						<img
 							className="mainContent"
 							id="weatherIcon"

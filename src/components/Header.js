@@ -21,6 +21,14 @@ const ToggleModeButton = styled.button`
 	position: absolute;
 	right: 5%;
 	top: 3.5%;
+	border: none;
+	color: ${(props) => props.theme.colors.buttonTextColor};
+	background-color: ${(props) => props.theme.colors.buttonBackground};
+	outline: none;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
 
 const WeatherAppHeading = styled.h1`
@@ -41,10 +49,9 @@ const UserSearchInput = styled.input.attrs({
 	placeholder: "City, Country",
 	id: "userSearch",
 })`
-	height: 3vh;
 	width: 100%;
 	max-width: 350px;
-	border-radius: 5px 0 0 5px;
+	height: 35px;
 	padding: 12px 20px 12px 12px;
 	box-shadow: inset 0px 0px 10px #446491;
 	background: transparent;
@@ -55,18 +62,28 @@ const UserSearchInput = styled.input.attrs({
 	}
 `;
 
-const SearchBarButton = styled.button`
+const SearchButton = styled.button`
 	background-color: #446491;
 	border: none;
 	outline: none;
-	width: 25px;
-	height: 3vh;
-
-	&:hover {
-		cursor: pointer;
-	}
+	width: 30px;
+	height: 35px;
+	padding: 5px;
 	color: #fff;
+	border-radius: 4px 0 0 4px;
 `;
+
+const CurrentLocationButton = styled.button`
+	background-color: #446491;
+	border: none;
+	outline: none;
+	width: 30px;
+	height: 35px;
+	padding: 5px;
+	color: #fff;
+	border-radius: 0 4px 4px 0;
+`;
+
 const Header = (props) => {
 	return (
 		<HeaderContainer>
@@ -75,17 +92,17 @@ const Header = (props) => {
 				{props.themeMode === "Light" ? "Dark" : "Light"}
 			</ToggleModeButton>
 			<UserSearchForm>
-				<SearchBarButton onClick={(e) => props.submit(e)}>
+				<SearchButton onClick={(e) => props.submit(e)}>
 					<FontAwesomeIcon icon={faSearch} />
-				</SearchBarButton>
+				</SearchButton>
 
 				<UserSearchInput
 					onChange={(e) => props.handleChange(e)}
 				></UserSearchInput>
 
-				<SearchBarButton onClick={(e) => props.getCurrentLocation(e)}>
+				<CurrentLocationButton onClick={(e) => props.getCurrentLocation(e)}>
 					<FontAwesomeIcon icon={faCrosshairs} />
-				</SearchBarButton>
+				</CurrentLocationButton>
 			</UserSearchForm>
 			{props.error ? <Error></Error> : <div></div>}
 		</HeaderContainer>
