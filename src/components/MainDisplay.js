@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Loader from "react-loader-spinner";
 import styled from "styled-components";
+import ToggleTempUnits from "./toggleTempUnits";
 
 const MainDisplayContainer = styled.div`
 	display: flex;
@@ -86,9 +87,7 @@ const MainDisplay = (props) => {
 			) : (
 				<Content>
 					<div id="main">
-						<button onClick={toggleDegrees} id="toggleDegrees">
-							toggle F and C
-						</button>
+						<ToggleTempUnits onClick={toggleDegrees}></ToggleTempUnits>
 						<h1 className="mainContent" id="location">
 							{props.weatherData.city}, {props.weatherData.country}
 						</h1>

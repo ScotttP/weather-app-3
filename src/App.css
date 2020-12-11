@@ -8,6 +8,13 @@
 	width: 100%;
 }
 
+#toggleUnits ::before {
+	content: "F";
+}
+#toggleUnits ::after {
+	content: "C";
+}
+
 @media only screen and (min-width: 90px) {
 	#details {
 		display: flex;
