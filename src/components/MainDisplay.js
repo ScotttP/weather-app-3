@@ -15,7 +15,8 @@ const Content = styled.div`
 	background-color: white;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
 	border-radius: 10px;
-	padding: 50px 100px 50px 100px;
+	width: 40%;
+	${"" /* padding: 50px 100px 50px 100px; */}
 	min-height: 522px;
 `;
 
@@ -31,12 +32,20 @@ const TempAndWeatherDescription = styled.div`
 	margin: 20px;
 `;
 
+const ToggleUnitsContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+`;
+
 const LoadingIndicator = (props) => {
 	return <Loader type="ThreeDots" color="#6291d3	" height="100" width="100" />;
 };
 
 const MainDisplay = (props) => {
 	const [unit, setUnit] = useState("F");
+
 	const toggleDegrees = () => {
 		setUnit((prevState) => {
 			if (prevState === "F") return "C";
@@ -86,8 +95,11 @@ const MainDisplay = (props) => {
 				</Content>
 			) : (
 				<Content>
+					<ToggleUnitsContainer>
+						<ToggleTempUnits toggle={toggleDegrees}></ToggleTempUnits>
+					</ToggleUnitsContainer>
+
 					<div id="main">
-						<ToggleTempUnits onClick={toggleDegrees}></ToggleTempUnits>
 						<h1 className="mainContent" id="location">
 							{props.weatherData.city}, {props.weatherData.country}
 						</h1>
