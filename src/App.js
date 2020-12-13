@@ -25,8 +25,14 @@ button {
 `;
 
 const FavoritesContainer = styled.div`
-	display: flex;
+	display: grid;
 	background: ${(props) => props.theme.colors.background};
+	flex-wrap: wrap;
+	grid-template-columns: repeat(4, 24vw);
+	grid-template-rows: repeat(5, 9vh);
+	column-gap: 1%;
+	row-gap: 3%;
+	justify-self: center;
 `;
 
 const App = () => {

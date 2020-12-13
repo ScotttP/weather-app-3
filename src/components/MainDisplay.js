@@ -16,7 +16,7 @@ const Content = styled.div`
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
 	border-radius: 10px;
 	width: 40%;
-
+	min-width: 315px;
 	min-height: 522px;
 `;
 
@@ -60,6 +60,20 @@ const DetailContent = styled.p`
 const AddFavoritesContainer = styled.div`
 	width: 100%;
 	display: flex;
+	justify-content: center;
+	margin-bottom: 5%;
+`;
+
+const AddFavoritesButton = styled.div`
+	width: 10em;
+	border: 1px black solid;
+	height: 1.5em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	&:hover {
+		cursor: pointer;
+	}
 `;
 
 const LoadingIndicator = (props) => {
@@ -174,9 +188,11 @@ const MainDisplay = (props) => {
 						</DetailContent>
 					</Details>
 					<AddFavoritesContainer>
-						<button onClick={() => props.addToFavorites(props.weatherData)}>
+						<AddFavoritesButton
+							onClick={() => props.addToFavorites(props.weatherData)}
+						>
 							+ Add To Favorites
-						</button>
+						</AddFavoritesButton>
 					</AddFavoritesContainer>
 				</Content>
 			)}

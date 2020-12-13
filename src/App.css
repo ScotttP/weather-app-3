@@ -19,6 +19,9 @@
 
 	transform: translateX(-50%);
 }
+#favorites {
+	margin: 0 0 2% 2%;
+}
 
 .slider {
 	border: black solid 1px;

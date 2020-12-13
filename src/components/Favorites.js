@@ -3,22 +3,44 @@ import styled from "styled-components";
 
 const FavoritesDiv = styled.div`
 	display: flex;
-	border: 1px solid black;
+	justify-self: center;
+	justify-content: center;
+	align-items: center;
+	width: 90%;
+	height: 90%;
+	background-color: white;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
+	border-radius: 10px;
+	padding: 10px;
+	transition: 0.3s;
+	&:hover {
+		cursor: pointer;
+		transform: translateY(-5px);
+		box-shadow: 0 0 5px rgba(0, 0, 0, 5);
+	}
+`;
+const FavoritesInnerDiv = styled.div`
+	width: 100%;
+	padding: 0 5% 0 5%;
+	display: flex;
+	justify-content: space-between;
 `;
 
 const Favorites = (props) => {
 	return (
 		<FavoritesDiv onClick={() => props.displayFavorites()}>
-			<h1>
-				{props.element.city}, {props.element.country}
-			</h1>
+			<FavoritesInnerDiv>
+				<h3>
+					{props.element.city}, {props.element.country}
+				</h3>
 
-			<button
-				className="deleteFromFavoritesButton"
-				onClick={() => props.deleteFromFavorites(props.index)}
-			>
-				Delete From Favorites
-			</button>
+				<button
+					className="deleteFromFavoritesButton"
+					onClick={() => props.deleteFromFavorites(props.index)}
+				>
+					X
+				</button>
+			</FavoritesInnerDiv>
 		</FavoritesDiv>
 	);
 };

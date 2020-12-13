@@ -15,8 +15,9 @@ const HeaderContainer = styled.div`
 	align-items: center;
 `;
 
-const ToggleModeButton = styled.button`
+const ToggleThemeButton = styled.button`
 	width: 10vw;
+	max-width: 60px;
 	height: 3vh;
 	position: absolute;
 	right: 5%;
@@ -88,9 +89,9 @@ const Header = (props) => {
 	return (
 		<HeaderContainer>
 			<WeatherAppHeading>Weather App</WeatherAppHeading>{" "}
-			<ToggleModeButton onClick={props.toggleMode}>
+			<ToggleThemeButton onClick={props.toggleMode}>
 				{props.themeMode === "Light" ? "Dark" : "Light"}
-			</ToggleModeButton>
+			</ToggleThemeButton>
 			<UserSearchForm>
 				<SearchButton onClick={(e) => props.submit(e)}>
 					<FontAwesomeIcon icon={faSearch} />
