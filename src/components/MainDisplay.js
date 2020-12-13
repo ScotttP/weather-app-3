@@ -16,16 +16,16 @@ const Content = styled.div`
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
 	border-radius: 10px;
 	width: 40%;
-	${"" /* padding: 50px 100px 50px 100px; */}
+
 	min-height: 522px;
 `;
 
 const Details = styled.div`
-	margin: 10% 5% 5% 5%;
+	margin: 0 5% 5% 5%;
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
-	justify-content: flex-start;
+	justify-content: center;
+	align-items: center;
 `;
 
 const TempAndWeatherDescription = styled.div`
@@ -37,6 +37,29 @@ const ToggleUnitsContainer = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
+`;
+
+const Main = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+`;
+
+const DetailContent = styled.p`
+	display: flex;
+	justify-content: flex-start;
+	margin: 7px;
+
+	& > strong {
+		margin-left: 5px;
+	}
+`;
+
+const AddFavoritesContainer = styled.div`
+	width: 100%;
+	display: flex;
 `;
 
 const LoadingIndicator = (props) => {
@@ -99,7 +122,7 @@ const MainDisplay = (props) => {
 						<ToggleTempUnits toggle={toggleDegrees}></ToggleTempUnits>
 					</ToggleUnitsContainer>
 
-					<div id="main">
+					<Main>
 						<h1 className="mainContent" id="location">
 							{props.weatherData.city}, {props.weatherData.country}
 						</h1>
@@ -122,9 +145,9 @@ const MainDisplay = (props) => {
 						<TempAndWeatherDescription>
 							<strong>{props.weatherData.description}</strong>
 						</TempAndWeatherDescription>
-					</div>
+					</Main>
 					<Details>
-						<p className="detailContent" id="feelsLike">
+						<DetailContent id="feelsLike">
 							Feels Like:{" "}
 							<strong>
 								{
@@ -133,26 +156,28 @@ const MainDisplay = (props) => {
 									</>
 								}
 							</strong>
-						</p>
-						<p className="detailContent" id="humidity">
+						</DetailContent>
+						<DetailContent id="humidity">
 							Humidity: <strong>{props.weatherData.humidity}%</strong>
-						</p>
-						<p className="detailContent" id="windDirection">
+						</DetailContent>
+						<DetailContent id="windDirection">
 							Wind Direction:{" "}
 							<strong>
 								{<>{windDirection(props.weatherData.windDirection)}</>}
 							</strong>
-						</p>
-						<p className="detailContent" id="windSpeed">
+						</DetailContent>
+						<DetailContent id="windSpeed">
 							Wind Speed:{" "}
 							<strong>
 								{<>{windSpeed(props.weatherData.windSpeed)} MPH</>}
 							</strong>
-						</p>
+						</DetailContent>
 					</Details>
-					<button onClick={() => props.addToFavorites(props.weatherData)}>
-						Add to Favorites
-					</button>
+					<AddFavoritesContainer>
+						<button onClick={() => props.addToFavorites(props.weatherData)}>
+							+ Add To Favorites
+						</button>
+					</AddFavoritesContainer>
 				</Content>
 			)}
 		</MainDisplayContainer>
