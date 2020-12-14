@@ -34,12 +34,10 @@ const Favorites = (props) => {
 					{props.element.city}, {props.element.country}
 				</h3>
 
-				<button
-					className="deleteFromFavoritesButton"
+				<i
+					className="fa fa-close"
 					onClick={() => props.deleteFromFavorites(props.index)}
-				>
-					X
-				</button>
+				></i>
 			</FavoritesInnerDiv>
 		</FavoritesDiv>
 	);

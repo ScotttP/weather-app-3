@@ -22,6 +22,9 @@
 #favorites {
 	margin: 0 0 2% 2%;
 }
+.fa:hover {
+	color: red;
+}
 
 .slider {
 	border: black solid 1px;

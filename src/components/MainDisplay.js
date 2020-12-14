@@ -17,6 +17,7 @@ const Content = styled.div`
 	border-radius: 10px;
 	width: 40%;
 	min-width: 315px;
+	max-width: 450px;
 	min-height: 522px;
 `;
 
@@ -66,13 +67,18 @@ const AddFavoritesContainer = styled.div`
 
 const AddFavoritesButton = styled.div`
 	width: 10em;
-	border: 1px black solid;
+	border: 1px #446491 solid;
+	color: #446491;
 	height: 1.5em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: 0.3s;
 	&:hover {
 		cursor: pointer;
+		color: white;
+		background-color: #446491;
+		border: 1px #2a3d58 solid;
 	}
 `;
 
