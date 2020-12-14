@@ -18,6 +18,7 @@ const HeaderContainer = styled.div`
 const ToggleThemeButton = styled.button`
 	width: 10vw;
 	max-width: 60px;
+	min-width: 45px;
 	height: 3vh;
 	position: absolute;
 	right: 5%;

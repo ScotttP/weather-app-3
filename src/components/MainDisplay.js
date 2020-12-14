@@ -12,11 +12,15 @@ const MainDisplayContainer = styled.div`
 `;
 
 const Content = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	background-color: white;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
 	border-radius: 10px;
 	width: 40%;
-	min-width: 315px;
+	min-width: 305px;
 	max-width: 450px;
 	min-height: 522px;
 `;
@@ -82,7 +86,7 @@ const AddFavoritesButton = styled.div`
 	}
 `;
 
-const LoadingIndicator = (props) => {
+const LoadingIndicator = () => {
 	return <Loader type="ThreeDots" color="#6291d3	" height="100" width="100" />;
 };
 

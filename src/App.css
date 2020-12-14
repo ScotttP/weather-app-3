@@ -22,6 +22,11 @@
 #favorites {
 	margin: 0 0 2% 2%;
 }
+.fa {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 .fa:hover {
 	color: red;
 }
@@ -39,7 +44,7 @@
 	bottom: 0;
 	cursor: pointer;
 	background-color: #c0bebe;
-
+	color: #611616;
 	-webkit-transition: 0.4s;
 	transition: 0.4s;
 	border-radius: 25px;
@@ -92,8 +97,6 @@ input:checked + .slider span:first-child {
 	color: black !important;
 }
 
-@media only screen and (min-width: 90px) {
-}
 @media only screen and (max-width: 385px) {
 	#content {
 		padding: 25px 50px 25px 50px;

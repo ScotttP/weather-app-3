@@ -33,6 +33,12 @@ const FavoritesContainer = styled.div`
 	column-gap: 1%;
 	row-gap: 3%;
 	justify-self: center;
+	@media only screen and (max-width: 530px) {
+		grid-template-columns: repeat(3, 32.5vw);
+	}
+	@media only screen and (max-width: 380px) {
+		grid-template-columns: repeat(2, 48vw);
+	}
 `;
 
 const App = () => {
@@ -144,13 +150,19 @@ const App = () => {
 	};
 	const addToFavorites = (newItem) => {
 		let copyFavoritesList = JSON.parse(JSON.stringify(favorites));
-		if (copyFavoritesList.find((e) => e.city === newItem.city)) return;
+		if (
+			copyFavoritesList.find(
+				(e) => e.city === newItem.city && e.country === newItem.country
+			)
+		)
+			return;
 		//check if city is already in favorites list
 		else setFavorites([...copyFavoritesList, newItem]);
 	};
 	const deleteFromFavorites = (index) => {
 		let copyFavoritesList = JSON.parse(JSON.stringify(favorites));
 		copyFavoritesList.splice(index, 1);
+		console.log(index);
 		setFavorites(copyFavoritesList);
 	};
 
@@ -188,7 +200,7 @@ const App = () => {
 				element={element}
 				index={index}
 				displayFavorites={() => displayFavorites(element)}
-				deleteFromFavorites={() => deleteFromFavorites()}
+				deleteFromFavorites={() => deleteFromFavorites(index)}
 			/>
 		));
 	};

@@ -7,6 +7,7 @@ const FavoritesDiv = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: 90%;
+	min-width: 150px;
 	height: 90%;
 	background-color: white;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
