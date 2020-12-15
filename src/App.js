@@ -33,11 +33,16 @@ const FavoritesContainer = styled.div`
 	column-gap: 1%;
 	row-gap: 3%;
 	justify-self: center;
-	@media only screen and (max-width: 530px) {
+	margin-bottom: 5%;
+	height: 60vh;
+	@media only screen and (max-width: 650px) {
 		grid-template-columns: repeat(3, 32.5vw);
 	}
-	@media only screen and (max-width: 380px) {
+	@media only screen and (max-width: 510px) {
 		grid-template-columns: repeat(2, 48vw);
+	}
+	@media only screen and (max-width: 350px) {
+		grid-template-columns: repeat(1, 98vw);
 	}
 `;
 
@@ -204,6 +209,7 @@ const App = () => {
 			/>
 		));
 	};
+
 	return (
 		<ThemeProvider theme={themeMode === "Light" ? lightTheme : darkTheme}>
 			<GlobalStyle></GlobalStyle>
@@ -222,9 +228,12 @@ const App = () => {
 					isLoading={loading}
 					addToFavorites={addToFavorites}
 					weatherData={weatherData}
+					themeMode={themeMode}
 				/>
-				<h1 id="favorites">Favorites</h1>
-				<FavoritesContainer>{renderFavorites()}</FavoritesContainer>
+				{/* <h1 id="favorites">Favorites</h1> */}
+				<FavoritesContainer themeMode={themeMode}>
+					{renderFavorites()}
+				</FavoritesContainer>
 			</div>
 		</ThemeProvider>
 	);

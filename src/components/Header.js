@@ -6,9 +6,11 @@ import styled from "styled-components";
 
 const HeaderContainer = styled.div`
 	color: #fff;
-	background-color: #6291d3;
+	background-color: ${(props) => props.theme.colors.headerBackgroundColor};
+
 	height: 15vh;
 	max-height: 155px;
+	min-height: 110px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -25,7 +27,7 @@ const ToggleThemeButton = styled.button`
 	top: 3.5%;
 	border: none;
 	color: ${(props) => props.theme.colors.buttonTextColor};
-	background-color: ${(props) => props.theme.colors.buttonBackground};
+	background-color: ${(props) => props.theme.colors.toggleButtonBackground};
 	outline: none;
 	border-radius: 5px;
 	display: flex;
@@ -55,7 +57,8 @@ const UserSearchInput = styled.input.attrs({
 	max-width: 350px;
 	height: 35px;
 	padding: 12px 20px 12px 12px;
-	box-shadow: inset 0px 0px 10px #446491;
+	box-shadow: inset 0px 0px 10px
+		${(props) => props.theme.colors.buttonBackground};
 	background: transparent;
 	outline: none;
 	border: none;
@@ -65,7 +68,7 @@ const UserSearchInput = styled.input.attrs({
 `;
 
 const SearchButton = styled.button`
-	background-color: #446491;
+	background-color: ${(props) => props.theme.colors.buttonBackground};
 	border: none;
 	outline: none;
 	width: 30px;
@@ -76,7 +79,7 @@ const SearchButton = styled.button`
 `;
 
 const CurrentLocationButton = styled.button`
-	background-color: #446491;
+	background-color: ${(props) => props.theme.colors.buttonBackground};
 	border: none;
 	outline: none;
 	width: 30px;

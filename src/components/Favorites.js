@@ -9,7 +9,8 @@ const FavoritesDiv = styled.div`
 	width: 90%;
 	min-width: 150px;
 	height: 90%;
-	background-color: white;
+	background-color: ${(props) => props.theme.colors.displayBackgroundColor};
+	color: ${(props) => props.theme.colors.textColor};
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
 	border-radius: 10px;
 	padding: 10px;

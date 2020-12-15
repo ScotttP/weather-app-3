@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import Loader from "react-loader-spinner";
 import styled from "styled-components";
 import ToggleTempUnits from "./toggleTempUnits";
+import { ThemeProvider } from "styled-components";
+import lightTheme from "../themes/light";
+import darkTheme from "../themes/dark";
 
 const MainDisplayContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: 5% 2% 2% 2%;
+	margin: 5% 2% 5% 2%;
 `;
 
 const Content = styled.div`
@@ -16,7 +19,8 @@ const Content = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: white;
+	background-color: ${(props) => props.theme.colors.displayBackgroundColor};
+	color: ${(props) => props.theme.colors.textColor};
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
 	border-radius: 10px;
 	width: 40%;
@@ -69,11 +73,13 @@ const AddFavoritesContainer = styled.div`
 	margin-bottom: 5%;
 `;
 
-const AddFavoritesButton = styled.div`
+const AddFavoritesButton = styled.button`
 	width: 10em;
-	border: 1px #446491 solid;
-	color: #446491;
-	height: 1.5em;
+	border: 1px ${(props) => props.theme.colors.textColor} solid;
+	color: ${(props) => props.theme.colors.textColor};
+	background-color: ${(props) => props.theme.colors.displayBackgroundColor};
+	height: 2.5em;
+	padding: 5px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -81,13 +87,20 @@ const AddFavoritesButton = styled.div`
 	&:hover {
 		cursor: pointer;
 		color: white;
-		background-color: #446491;
-		border: 1px #2a3d58 solid;
+		background-color: ${(props) => props.theme.colors.buttonBackground};
+		border: 1px ${(props) => props.theme.colors.buttonBackground} solid;
 	}
 `;
 
 const LoadingIndicator = () => {
-	return <Loader type="ThreeDots" color="#6291d3	" height="100" width="100" />;
+	return (
+		<Loader
+			type="ThreeDots"
+			color={(props) => props.theme.colors.headerBackgroundColor}
+			height="100"
+			width="100"
+		/>
+	);
 };
 
 const MainDisplay = (props) => {
@@ -133,80 +146,82 @@ const MainDisplay = (props) => {
 		];
 		return arr[val % 16];
 	};
-
+	console.log(props.themeMode);
 	return (
-		<MainDisplayContainer id="mainDisplayContainer">
-			{props.isLoading ? (
-				<Content>
-					<LoadingIndicator />
-				</Content>
-			) : (
-				<Content>
-					<ToggleUnitsContainer>
-						<ToggleTempUnits toggle={toggleDegrees}></ToggleTempUnits>
-					</ToggleUnitsContainer>
+		<ThemeProvider theme={props.themeMode === "Light" ? lightTheme : darkTheme}>
+			<MainDisplayContainer>
+				{props.isLoading ? (
+					<Content>
+						<LoadingIndicator />
+					</Content>
+				) : (
+					<Content>
+						<ToggleUnitsContainer>
+							<ToggleTempUnits toggle={toggleDegrees}></ToggleTempUnits>
+						</ToggleUnitsContainer>
 
-					<Main>
-						<h1 className="mainContent" id="location">
-							{props.weatherData.city}, {props.weatherData.country}
-						</h1>
+						<Main>
+							<h1 className="mainContent" id="location">
+								{props.weatherData.city}, {props.weatherData.country}
+							</h1>
 
-						<img
-							className="mainContent"
-							id="weatherIcon"
-							src={`https://openweathermap.org/img/wn/${props.weatherData.icon}@2x.png`}
-							alt={props.weatherData.description + " Icon"}
-						/>
-						<TempAndWeatherDescription>
-							<strong>
-								{
-									<>
-										{kelvinToUnit(props.weatherData.temp)}&deg;{unit}{" "}
-									</>
-								}
-							</strong>
-						</TempAndWeatherDescription>
-						<TempAndWeatherDescription>
-							<strong>{props.weatherData.description}</strong>
-						</TempAndWeatherDescription>
-					</Main>
-					<Details>
-						<DetailContent id="feelsLike">
-							Feels Like:{" "}
-							<strong>
-								{
-									<>
-										{kelvinToUnit(props.weatherData.temp)}&deg;{unit}
-									</>
-								}
-							</strong>
-						</DetailContent>
-						<DetailContent id="humidity">
-							Humidity: <strong>{props.weatherData.humidity}%</strong>
-						</DetailContent>
-						<DetailContent id="windDirection">
-							Wind Direction:{" "}
-							<strong>
-								{<>{windDirection(props.weatherData.windDirection)}</>}
-							</strong>
-						</DetailContent>
-						<DetailContent id="windSpeed">
-							Wind Speed:{" "}
-							<strong>
-								{<>{windSpeed(props.weatherData.windSpeed)} MPH</>}
-							</strong>
-						</DetailContent>
-					</Details>
-					<AddFavoritesContainer>
-						<AddFavoritesButton
-							onClick={() => props.addToFavorites(props.weatherData)}
-						>
-							+ Add To Favorites
-						</AddFavoritesButton>
-					</AddFavoritesContainer>
-				</Content>
-			)}
-		</MainDisplayContainer>
+							<img
+								className="mainContent"
+								id="weatherIcon"
+								src={`https://openweathermap.org/img/wn/${props.weatherData.icon}@2x.png`}
+								alt={props.weatherData.description + " Icon"}
+							/>
+							<TempAndWeatherDescription>
+								<strong>
+									{
+										<>
+											{kelvinToUnit(props.weatherData.temp)}&deg;{unit}{" "}
+										</>
+									}
+								</strong>
+							</TempAndWeatherDescription>
+							<TempAndWeatherDescription>
+								<strong>{props.weatherData.description}</strong>
+							</TempAndWeatherDescription>
+						</Main>
+						<Details>
+							<DetailContent id="feelsLike">
+								Feels Like:{" "}
+								<strong>
+									{
+										<>
+											{kelvinToUnit(props.weatherData.temp)}&deg;{unit}
+										</>
+									}
+								</strong>
+							</DetailContent>
+							<DetailContent id="humidity">
+								Humidity: <strong>{props.weatherData.humidity}%</strong>
+							</DetailContent>
+							<DetailContent id="windDirection">
+								Wind Direction:{" "}
+								<strong>
+									{<>{windDirection(props.weatherData.windDirection)}</>}
+								</strong>
+							</DetailContent>
+							<DetailContent id="windSpeed">
+								Wind Speed:{" "}
+								<strong>
+									{<>{windSpeed(props.weatherData.windSpeed)} MPH</>}
+								</strong>
+							</DetailContent>
+						</Details>
+						<AddFavoritesContainer>
+							<AddFavoritesButton
+								onClick={() => props.addToFavorites(props.weatherData)}
+							>
+								+ Add To Favorites
+							</AddFavoritesButton>
+						</AddFavoritesContainer>
+					</Content>
+				)}
+			</MainDisplayContainer>
+		</ThemeProvider>
 	);
 };
 export default MainDisplay;

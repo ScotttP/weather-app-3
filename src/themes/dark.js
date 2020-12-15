@@ -1,8 +1,12 @@
 export default {
 	colors: {
 		background: "#2E3440",
-		buttonBackground: "#e3e3e3",
+		displayBackgroundColor: "#3B4252",
+		buttonBackground: "#3B4252",
+		toggleButtonBackground: "#3B4252",
+		buttonTextColor: "#fff",
 		textColor: "#ECEFF4",
-		buttonColor: "#2E3440",
+		borderColor: "#2E3440",
+		headerBackgroundColor: "#252a35",
 	},
 };
