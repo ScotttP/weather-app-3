@@ -62,6 +62,7 @@ const UserSearchInput = styled.input.attrs({
 	background: transparent;
 	outline: none;
 	border: none;
+	color: white;
 	&::placeholder {
 		color: #fff;
 	}

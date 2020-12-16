@@ -11,10 +11,17 @@ import darkTheme from "./themes/dark";
 import "./App.css";
 
 const GlobalStyle = createGlobalStyle`
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	transition: 0.2s;
+}
 
 body {
 	height: 100vh;
 	background-color: ${(props) => props.theme.colors.background};
+	
 }
 button {
 	&:hover  {

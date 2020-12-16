@@ -24,9 +24,14 @@ const Content = styled.div`
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.26);
 	border-radius: 10px;
 	width: 40%;
+	height: 60vh;
+	max-height: 540px;
 	min-width: 305px;
 	max-width: 450px;
-	min-height: 522px;
+	${"" /* min-height: 522px; */}
+	@media only screen and (max-height: 867px) {
+		font-size: 0.8em;
+	}
 `;
 
 const Details = styled.div`
@@ -35,10 +40,16 @@ const Details = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	@media only screen and (max-height: 675px) {
+		margin: 0 2% 2% 2%;
+	}
 `;
 
 const TempAndWeatherDescription = styled.div`
 	margin: 20px;
+	@media only screen and (max-height: 767px) {
+		margin: 5px;
+	}
 `;
 
 const ToggleUnitsContainer = styled.div`
@@ -46,6 +57,9 @@ const ToggleUnitsContainer = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
+	@media only screen and (max-height: 675px) {
+		height: 25px;
+	}
 `;
 
 const Main = styled.div`
@@ -53,7 +67,10 @@ const Main = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding: 20px;
+	padding: 2%;
+	@media only screen and (max-height: 767px) {
+		padding: 2%;
+	}
 `;
 
 const DetailContent = styled.p`
@@ -64,6 +81,9 @@ const DetailContent = styled.p`
 	& > strong {
 		margin-left: 5px;
 	}
+	@media only screen and (max-height: 675px) {
+		margin: 3px;
+	}
 `;
 
 const AddFavoritesContainer = styled.div`
@@ -71,6 +91,9 @@ const AddFavoritesContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	margin-bottom: 5%;
+	@media only screen and (max-height: 675px) {
+		margin-bottom: 2%;
+	}
 `;
 
 const AddFavoritesButton = styled.button`
@@ -84,19 +107,23 @@ const AddFavoritesButton = styled.button`
 	justify-content: center;
 	align-items: center;
 	transition: 0.3s;
+
 	&:hover {
 		cursor: pointer;
 		color: white;
 		background-color: ${(props) => props.theme.colors.buttonBackground};
 		border: 1px ${(props) => props.theme.colors.buttonBackground} solid;
 	}
+	@media only screen and (max-height: 675px) {
+		height: 1.5em;
+	}
 `;
 
-const LoadingIndicator = () => {
+const LoadingIndicator = (props) => {
 	return (
 		<Loader
 			type="ThreeDots"
-			color={(props) => props.theme.colors.headerBackgroundColor}
+			color={props.theme === "Light" ? "#6291d3" : "#252a35"}
 			height="100"
 			width="100"
 		/>
@@ -146,13 +173,13 @@ const MainDisplay = (props) => {
 		];
 		return arr[val % 16];
 	};
-	console.log(props.themeMode);
+
 	return (
 		<ThemeProvider theme={props.themeMode === "Light" ? lightTheme : darkTheme}>
 			<MainDisplayContainer>
 				{props.isLoading ? (
 					<Content>
-						<LoadingIndicator />
+						<LoadingIndicator theme={props.themeMode} />
 					</Content>
 				) : (
 					<Content>
