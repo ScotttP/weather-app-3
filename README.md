@@ -16,8 +16,8 @@ Technologies:
 
 ## Light Theme
 
-![Alt text](https://github.com/ScotttP/weather-app-3/blob/master/weather-app-3-lightMode.png?raw=true)
+![Alt text](https://github.com/ScotttP/weather-app-3/blob/master/weather-app-3-screenshot-lightMode.png?raw=true)
 
 ## Dark Theme
 
-![Alt text](https://github.com/ScotttP/weather-app-3/blob/master/weather-app-3-darkMode.png?raw=true)
+![Alt text](https://github.com/ScotttP/weather-app-3/blob/master/weather-app-3-screenshot-darkMode.png?raw=true)
